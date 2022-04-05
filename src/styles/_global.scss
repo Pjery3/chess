@@ -22,6 +22,11 @@ html {
       a {
         color: #fff;
       }
+      .menu__socials{
+        a{
+          color: #000;
+        }
+      }
     }
     .scroll-bar {
       background-color: rgba(255, 255, 255, 0.3);
@@ -214,6 +219,15 @@ h2 {
   }
 }
 
+//лого
+.logo {
+  position: fixed;
+  left: 30px;
+  top: 50px;
+  font-size: 35px;
+  z-index: 15;
+}
+
 //scroll-bar
 .scroll-bar {
   position: fixed;
@@ -232,5 +246,172 @@ h2 {
     left: 0;
     background-color: #fff;
     transform-origin: center bottom;
+  }
+}
+
+//меню-кнопки
+.menu-buttons {
+  position: fixed;
+  right: 30px;
+  top: 50px;
+  font-size: 2rem;
+  z-index: 15;
+
+  padding: 10px 15px;
+  cursor: pointer;
+
+  transition: all 0.1s;
+}
+
+.bi {
+  &.bi-arrow-left {
+    fill: transparent;
+    stroke: #000;
+    stroke-width: 1%;
+  }
+  &.bi-arrow-right {
+    fill: transparent;
+    stroke: #000;
+    stroke-width: 1%;
+    transform: rotate(180deg);
+  }
+}
+
+//меню
+.menu-btn {
+  opacity: 1;
+}
+.menu-close {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+
+  opacity: 0;
+}
+.menu-wrapper {
+  position: fixed;
+  top: 0;
+  z-index: 14;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  visibility: hidden;
+  background-color: #fff;
+  min-height: 0;
+  width: 100vw;
+  font-size: 0;
+
+  //   transition: height 0s .8s,visibility 0s .8s;
+
+  transition: all 0.7s;
+  transition-delay: 0.3s;
+}
+
+.menu__socials {
+  position: absolute;
+  left: 30px;
+  top: 50%;
+  transform: translateY(-50%);
+
+  display: flex;
+  flex-direction: column;
+
+  .menu__social {
+    position: relative;
+    & + .menu__social {
+      margin-top: 10px;
+    }
+    &::before {
+      position: absolute;
+      content: "";
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      z-index: -1;
+
+      border: 1px solid #000;
+      border-radius: 50%;
+      transform: scale(1.2);
+      transition: all 0.35s;
+
+      opacity: 0;
+    }
+    &:hover {
+      &::before {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+    a {
+      display: block;
+      padding: 0.9375rem;
+    }
+    // &:hover{
+    //   border: 1px solid #000;
+    //   padding: 10px;
+    // }
+  }
+}
+//попап-меню
+.menu__list {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  li {
+    text-transform: uppercase;
+    padding: 0.625rem 4.75rem;
+    opacity: 0;
+    font-size: 7vw;
+    transition: opacity 0.5s cubic-bezier(0.55, 0.085, 0.68, 0.53),
+      transform 0.5s cubic-bezier(0.55, 0.085, 0.68, 0.53);
+    .menu__item {
+      color: transparent;
+      -webkit-text-stroke: 1px #000;
+      display: inline-block;
+    }
+    svg {
+      opacity: 0;
+    }
+    &:hover {
+      .menu__item {
+        transform: rotate(180deg);
+      }
+    }
+    &:nth-child(odd) {
+      &:hover {
+        svg {
+          transform: translateY(-50%) translateX(-75px);
+          opacity: 1;
+        }
+      }
+      svg {
+        position: absolute;
+        top: 50%;
+        left: 100%;
+        transform: translateY(-50%);
+        transition: all 0.5s;
+      }
+    }
+    &:nth-child(2n) {
+      text-align: left;
+      &:hover {
+        svg {
+          transform: translateY(-50%) translateX(75px) rotate(180deg);
+          opacity: 1;
+        }
+      }
+      svg {
+        position: absolute;
+        top: 50%;
+        right: 100%;
+        transform: translateY(-50%) rotate(180deg);
+        transition: all 0.5s;
+      }
+    }
   }
 }

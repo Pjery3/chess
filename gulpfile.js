@@ -6,6 +6,7 @@ const uglify = require('gulp-uglify-es').default;
 const autoprefixer = require('gulp-autoprefixer');
 const imagemin = require('gulp-imagemin');
 const del = require('del');
+const rename = require('gulp-rename')
 
 function browsersync() {
     browserSync.init({
@@ -48,16 +49,19 @@ function scripts() {
 
 function styles() {
     return src([
-        'node_modules/normalize.css/normalize.css',
+        // 'node_modules/normalize.css/normalize.css',
         'src/**/styles.scss'
     ])
         .pipe(scss({ outputStyle: 'compressed' }))
-        .pipe(concat('styles.min.css'))
+        .pipe(rename({extname: '.min.css'}))
+        // .pipe(concat('styles.min.css'))
         .pipe(autoprefixer({
             overrideBrowserslist: ['last 10 versions'],
             grid: true
         }))
-        .pipe(dest('src/css'))
+        .pipe(dest(function(file){
+            return file.base
+        }))
         .pipe(browserSync.stream())
 }
 

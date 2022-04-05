@@ -1,3 +1,5 @@
+$cube-bezier: cubic-bezier(0.55, 0.085, 0.68, 0.53);
+
 //у всех элементов при выделении будет синий цвет
 *,
 *::before,
@@ -22,10 +24,13 @@ html {
       a {
         color: #fff;
       }
-      .menu__socials{
+      .menu__social{
         a{
           color: #000;
         }
+      }
+      button{
+        color: #fff;
       }
     }
     .scroll-bar {
@@ -49,6 +54,9 @@ html {
       &__value {
         background-color: #000;
       }
+    }
+    button{
+      color: #000;
     }
   }
 
@@ -74,6 +82,14 @@ html {
       min-height: 100vh;
       bottom: 0;
       top: unset;
+
+      .menu__socials{
+        .menu__social{
+          opacity: 1;
+          transition-delay: .7s;
+          transform: translateX(0px);
+        }
+      }
     }
     .menu-close {
       opacity: 1;
@@ -84,7 +100,7 @@ html {
     .menu__list {
       li {
         opacity: 1;
-        transition-delay: 0.5s;
+        transition-delay: 0.7s;
         transition-duration: 0.6s;
         transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
         &:nth-child(odd) {
@@ -219,15 +235,6 @@ h2 {
   }
 }
 
-//лого
-.logo {
-  position: fixed;
-  left: 30px;
-  top: 50px;
-  font-size: 35px;
-  z-index: 15;
-}
-
 //scroll-bar
 .scroll-bar {
   position: fixed;
@@ -247,6 +254,15 @@ h2 {
     background-color: #fff;
     transform-origin: center bottom;
   }
+}
+
+//лого
+.logo {
+  position: fixed;
+  left: 30px;
+  top: 50px;
+  font-size: 35px;
+  z-index: 15;
 }
 
 //меню-кнопки
@@ -321,6 +337,15 @@ h2 {
 
   .menu__social {
     position: relative;
+
+    transition: opacity .25s $cube-bezier, transform .35s $cube-bezier;
+    opacity: 0;
+    &:nth-child(odd){
+      transform: translateX(-30px);
+    }
+    &:nth-child(even){
+      transform: translateX(30px);
+    }
     & + .menu__social {
       margin-top: 10px;
     }

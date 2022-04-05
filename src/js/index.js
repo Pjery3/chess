@@ -12,14 +12,25 @@ $(document).ready(function () {
   });
 
   //скролл-бар
-  $(window).on('scroll resize', function(){
-    console.log('doc scroll top', $(document).scrollTop());
-    console.log('doc height', $(document).height());
-    console.log('win height', $(window).height());
+  $(window).on('scroll resize', function () {
+    // console.log('doc scroll top', $(document).scrollTop());
+    // console.log('doc height', $(document).height());
+    // console.log('win height', $(window).height());
     let o = $(document).scrollTop() / ($(document).height() - $(window).height())
 
     $('.scroll-bar__value').css({
       "height": (100 - 100 * o | 0) + "%"
+    })
+  })
+
+  $(document).on('mousemove', function (e) {
+    let rectangle = $('.rectangle');
+
+    let x = e.pageX - rectangle.width() / 2;
+    let y = e.pageY - rectangle.height() / 2;
+    console.log('x', x, y)
+    $('.rectangle').css({
+      'transform': `translate(${x}px, ${y}px)`
     })
   })
 
@@ -100,6 +111,7 @@ $(document).ready(function () {
   //   }
   //новая версия
   function changeSlide(slidesContainer, idx, isPagClicked) {
+    const REPLACEABLE_SLIDE = 1000;
     // let translateVal = 1920 * idx;
     // $(slidesContainer).css({
     //   transform: "translateX(" + "-" + translateVal + "px)",
@@ -142,25 +154,33 @@ $(document).ready(function () {
 
     setTimeout(() => {
       slidesContainer.find(".slide").removeClass("is-out");
-    }, 1000);
-
+    }, REPLACEABLE_SLIDE);
     setTimeout(() => {
       $(".s-wrapper").removeClass("is-out");
-    }, 2000);
+    }, REPLACEABLE_SLIDE + 1100)
     //устанавливаем статус следующему элементу, идущий за текущим.
+    // setTimeout(() => {
+
+    // }, REPLACEABLE_SLIDE + 500)
     if (idx + 1 == slidesCount) {
       slidesContainer
         .find(".slide")
         .removeClass("is-next")
         .eq(0)
-        .addClass("is-next");
+        .addClass("is-next is-ascent");
     } else {
       slidesContainer
         .find(".slide")
         .removeClass("is-next")
         .eq(idx + 1)
-        .addClass("is-next");
+        .addClass("is-next is-ascent");
     }
+
+    setTimeout(() => {
+      slidesContainer
+        .find(".slide")
+        .removeClass("is-ascent")
+    }, REPLACEABLE_SLIDE + 500)
 
     progressBar(idx, isPagClicked);
   }
@@ -198,11 +218,12 @@ $(document).ready(function () {
         let w = Number(elem.width()) / Number(elem.width() * 100);
         // console.log('object', elem.width());
         // console.log("w", w);
-        elem.css({ width: width + "%" });
+        elem.css({
+          width: width + "%"
+        });
         // console.log('elew', elem.width() + elemWidthAfterSplit)
       }
     }
   }
-
 
 });
